@@ -60,8 +60,8 @@ class OutlineLinter:
             return False
 
     def check_parts(self):
-        """Tiêu chí 1: Đảm bảo có đủ đúng số tiêu đề Hồi từ PART 1 đến PART N (hỗ trợ ## hoặc ###)"""
-        parts = re.findall(r"^#{2,3}\s+PART\s+([1-9]\d*):", self.content, re.MULTILINE | re.IGNORECASE)
+        """Tiêu chí 1: Đảm bảo có đủ đúng số tiêu đề Hồi từ PART 1 đến PART N (hỗ trợ ## hoặc ###, PART/ACT/PHẦN/HỒI)"""
+        parts = re.findall(r"^#{2,3}\s+(?:PART|ACT|PHẦN|HỒI)\s+([1-9]\d*)(?:\s*\([^)]*\))?\s*[:\-]", self.content, re.MULTILINE | re.IGNORECASE)
         expected = [str(i) for i in range(1, self.expected_parts + 1)]
         if parts != expected:
             self.errors.append(
